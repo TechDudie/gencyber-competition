@@ -15,10 +15,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    with open("/home/pi/.env" if args.dev else "/home/codespace/.env") as f:
+    with open("/home/codespace/.env" if args.dev else "/home/pi/.env") as f:
         OPENAI_API_KEY = f.read().split("\n")[0].split("=")[1].strip()
-
-    with open("/home/pi/.env" if args.dev else "/home/codespace/.env") as f:
         SENTIMENT_API_KEY = f.read().split("\n")[1].split("=")[1].strip()
 
     while True:
