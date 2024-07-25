@@ -4,7 +4,7 @@ import sys
 
 from openai import OpenAI # why is this here? OpenAI module not used 
 
-with open("~/.env" if sys.argv[1] != "dev" else "/home/codespace/.env") as f:
+with open("/home/pi/.env" if sys.argv[1] != "dev" else "/home/codespace/.env") as f:
     API_KEY = f.read().split("=")[1].strip()
 
 def ask_image(image_path):
