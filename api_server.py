@@ -35,6 +35,7 @@ app = Flask(__name__)
 
 @app.route('/actions', methods=['GET'])
 def actions():
+    global action_stack
     e = action_stack
     action_stack = []
     return str(e)
