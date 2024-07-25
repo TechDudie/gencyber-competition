@@ -14,9 +14,9 @@ while True:
 
     print("=" * 80)
     if _SENTIMENT:
-        color, sentiment = sentiment.get_sentiment(text)
-        print(f"{color}{sentiment}: {text}{colorama.Style.RESET_ALL}")
-        tts.speak(sentiment)
+        color, sent = sentiment.get_sentiment(text)
+        print(f"{color}{sent}: {text}{colorama.Style.RESET_ALL}")
+        tts.speak(sent)
     else:
         print(text)
     print("=" * 80)
