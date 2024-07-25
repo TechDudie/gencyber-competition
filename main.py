@@ -2,6 +2,7 @@ import time
 import chatgpt
 import camera
 import colorama
+import sentiment
 import sys
 
 _SENTIMENT = True if sys.argv[2] == "sentiment" else False
