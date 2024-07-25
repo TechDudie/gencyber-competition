@@ -39,9 +39,9 @@ def ask_image(image_path):
         }
     )
 
-    return response.json()
+    return response.json()["choices"][0]["message"]["content"]
 
 if __name__ == "__main__":
     image_path = input("Enter the path to your image file: ")
-    data = ask_image(image_path)
-    print(data["choices"][0]["message"]["content"])
+    text = ask_image(image_path)
+    print(text)
