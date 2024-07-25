@@ -2,13 +2,9 @@ import colorama
 import requests
 import sys
 
-with open("/home/pi/.env" if sys.argv[1] != "dev" else "/home/codespace/.env") as f:
-    API_KEY = f.read().split("\n")[1].split("=")[1].strip()
-    print(API_KEY)
-
-def get_sentiment(text):
+def get_sentiment(text, api_key):
     r = requests.post("https://api.meaningcloud.com/sentiment-2.1", data={
-        "key": API_KEY,
+        "key": api_key,
         "lang": "en",
         "model": "general",
         "txt": text

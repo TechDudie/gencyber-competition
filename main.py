@@ -1,23 +1,41 @@
+import argparse
 import camera
 import chatgpt
 import colorama
 import sentiment
-import sys
 import time
 import tts
 
-_SENTIMENT = True if sys.argv[2] == "sentiment" else False
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
 
-while True:
-    camera.capture()
-    text = chatgpt.ask_image("image.jpg")
+    parser.add_argument("-d", "--dev", help="Development mode", action="store_true")
+    parser.add_argument("-s", "--sentiment", help="Sentiment analysis", action="store_true")
+    parser.add_argument("-t", "--tts", help="Text to Speech on analyzed image", action="store_true")
 
-    print("=" * 80)
-    if _SENTIMENT:
-        color, sent = sentiment.get_sentiment(text)
-        print(f"{color}{sent}: {text}{colorama.Style.RESET_ALL}")
-        tts.speak(sent)
-    else:
-        print(text)
-    print("=" * 80)
-    time.sleep(3)
+    args = parser.parse_args()
+
+    with open("/home/pi/.env" if args["dev"] else "/home/codespace/.env") as f:
+        OPENAI_API_KEY = f.read().split("\n")[0].split("=")[1].strip()
+
+    with open("/home/pi/.env" if args["dev"] else "/home/codespace/.env") as f:
+        SENTIMENT_API_KEY = f.read().split("\n")[1].split("=")[1].strip()
+
+    while True:
+        camera.capture()
+        text = chatgpt.ask_image("image.jpg", OPENAI_API_KEY)
+
+        print("=" * 80)
+        if args["sentiment"]:
+            color, sent = sentiment.get_sentiment(text, SENTIMENT_API_KEY)
+            print(f"{color}{sent}: {text}{colorama.Style.RESET_ALL}")
+            tts.speak(sent)
+        else:
+            print(text)
+        
+        if args["tts"]:
+            time.sleep(0.5)
+            tts.speak(text)
+        
+        print("=" * 80)
+        time.sleep(7 if args["sentiment"] else 3)

@@ -4,10 +4,7 @@ import sys
 
 from openai import OpenAI # why is this here? OpenAI module not used 
 
-with open("/home/pi/.env" if sys.argv[1] != "dev" else "/home/codespace/.env") as f:
-    API_KEY = f.read().split("\n")[0].split("=")[1].strip()
-
-def ask_image(image_path):
+def ask_image(image_path, api_key):
 
     with open(image_path, "rb") as f:
         image = base64.b64encode(f.read()).decode("utf-8")
@@ -15,7 +12,7 @@ def ask_image(image_path):
     response = requests.post("https://api.openai.com/v1/chat/completions",
         headers={
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {API_KEY}"
+            "Authorization": f"Bearer {api_key}"
         }, json={
             "model": "gpt-4o-mini",
             "messages": [
