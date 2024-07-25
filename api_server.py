@@ -45,4 +45,5 @@ def authenicate():
 
 if __name__ == '__main__':
     gpio_thread = threading.Thread(target=button_checker)
+    gpio_thread.start()
     app.run()
