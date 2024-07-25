@@ -15,10 +15,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    with open("/home/pi/.env" if args["dev"] else "/home/codespace/.env") as f:
+    with open("/home/pi/.env" if args.dev else "/home/codespace/.env") as f:
         OPENAI_API_KEY = f.read().split("\n")[0].split("=")[1].strip()
 
-    with open("/home/pi/.env" if args["dev"] else "/home/codespace/.env") as f:
+    with open("/home/pi/.env" if args.dev else "/home/codespace/.env") as f:
         SENTIMENT_API_KEY = f.read().split("\n")[1].split("=")[1].strip()
 
     while True:
@@ -26,16 +26,16 @@ if __name__ == "__main__":
         text = chatgpt.ask_image("image.jpg", OPENAI_API_KEY)
 
         print("=" * 80)
-        if args["sentiment"]:
+        if args.sentiment:
             color, sent = sentiment.get_sentiment(text, SENTIMENT_API_KEY)
             print(f"{color}{sent}: {text}{colorama.Style.RESET_ALL}")
             tts.speak(sent)
         else:
             print(text)
         
-        if args["tts"]:
+        if args.tts:
             time.sleep(0.5)
             tts.speak(text)
         
         print("=" * 80)
-        time.sleep(7 if args["sentiment"] else 3)
+        time.sleep(7 if args.sentiment else 3)
