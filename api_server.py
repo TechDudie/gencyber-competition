@@ -5,15 +5,18 @@ import time
 import gpio
 
 global pressed
+global i
+global action_stack
+
 pressed = False
 i = 0
-
-global action_stack
 action_stack = []
 
 def button_checker():
     global pressed
+    global i
     global action_stack
+    
     while True:
         pressed = gpio.get_state()
         print(pressed)
@@ -26,6 +29,7 @@ def button_checker():
         
         if i >= 5:
             action_stack.append('button')
+            i = -10000
         
         time.sleep(0.05)
 
