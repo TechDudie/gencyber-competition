@@ -12,14 +12,13 @@ pressed = False
 i = 0
 action_stack = []
 
-def button_checker():
+def button_listener():
     global pressed
     global i
     global action_stack
 
     while True:
         pressed = not bool(gpio.get_state())
-        print(pressed)
 
         if pressed:
             i += 1
@@ -28,7 +27,7 @@ def button_checker():
             i = 0
         
         if i >= 5:
-            action_stack.append('button')
+            action_stack.append({"id": "button"})
             i = -10000
         
         time.sleep(0.05)
@@ -40,16 +39,14 @@ def actions():
     global action_stack
     e = action_stack
     action_stack = []
-    return str(e)
+    return str({"actions": e})
 
 @app.route('/authenticate', methods=['POST'])
 def authenicate():
-    # Handle POST request on /authenticate
     data = request.get_json()
-    # Perform authentication logic here
-    return 'Handling POST request on /authenticate'
+    return str({"response": "authenicated"})
 
 if __name__ == '__main__':
-    gpio_thread = threading.Thread(target=button_checker)
+    gpio_thread = threading.Thread(target=button_listener)
     gpio_thread.start()
     app.run()
