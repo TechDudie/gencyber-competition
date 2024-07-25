@@ -16,8 +16,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     with open("/home/codespace/.env" if args.dev else "/home/pi/.env") as f:
-        OPENAI_API_KEY = f.read().split("\n")[0].split("=")[1].strip()
-        SENTIMENT_API_KEY = f.read().split("\n")[1].split("=")[1].strip()
+        e = f.read().split("\n")
+        OPENAI_API_KEY = e[0].split("=")[1].strip()
+        SENTIMENT_API_KEY =e[1].split("=")[1].strip()
 
     while True:
         camera.capture()
