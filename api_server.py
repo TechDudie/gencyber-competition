@@ -15,6 +15,7 @@ def button_checker():
     global pressed
     global action_stack
     pressed = gpio.get_state()
+    print(pressed)
 
     if pressed:
         i += 1
