@@ -16,19 +16,18 @@ def get_sentiment(text):
 
     result =  r.json()["score_tag"]
 
-    match result:
-        case "P+":
-            return colorama.Fore.LIGHTGREEN_EX, "STRONG POSITIVE"
-        case "P":
-            return colorama.Fore.GREEN, "POSITIVE"
-        case "NEU":
-            return colorama.Fore.YELLOW, "NEUTRAL"
-        case "N":
-            return colorama.Fore.RED, "NEGATIVE"
-        case "N+":
-            return colorama.Fore.LIGHTRED_EX, "STRONG NEGATIVE"
-        case "NONE":
-            return colorama.Fore.WHITE, "NO SENTIMENT"
+    if result == "P+":
+        return colorama.Fore.LIGHTGREEN_EX, "STRONG POSITIVE"
+    elif result == "P":
+        return colorama.Fore.GREEN, "POSITIVE"
+    elif result == "NEU":
+        return colorama.Fore.YELLOW, "NEUTRAL"
+    elif result == "N":
+        return colorama.Fore.RED, "NEGATIVE"
+    elif result == "N+":
+        return colorama.Fore.LIGHTRED_EX, "STRONG NEGATIVE"
+    elif result == "NONE":
+        return colorama.Fore.WHITE, "NO SENTIMENT"
 
 if __name__ == "__main__":
     text = input("Enter some text: ")
