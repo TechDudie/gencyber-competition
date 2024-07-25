@@ -14,19 +14,20 @@ action_stack = []
 def button_checker():
     global pressed
     global action_stack
-    pressed = gpio.get_state()
-    print(pressed)
+    while True:
+        pressed = gpio.get_state()
+        print(pressed)
 
-    if pressed:
-        i += 1
-    
-    if not pressed:
-        i = 0
-    
-    if i >= 5:
-        action_stack.append('button')
-    
-    time.sleep(0.05)
+        if pressed:
+            i += 1
+        
+        if not pressed:
+            i = 0
+        
+        if i >= 5:
+            action_stack.append('button')
+        
+        time.sleep(0.05)
 
 app = Flask(__name__)
 
