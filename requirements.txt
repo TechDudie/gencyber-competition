@@ -1,2 +1,3 @@
 openai
 picamera
+pyttsx3

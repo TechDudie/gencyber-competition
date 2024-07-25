@@ -1,9 +1,10 @@
-import time
-import chatgpt
 import camera
+import chatgpt
 import colorama
 import sentiment
 import sys
+import time
+import tts
 
 _SENTIMENT = True if sys.argv[2] == "sentiment" else False
 
@@ -15,6 +16,7 @@ while True:
     if _SENTIMENT:
         color, sentiment = sentiment.get_sentiment(text)
         print(f"{color}{sentiment}: {text}{colorama.Style.RESET_ALL}")
+        tts.speak(sentiment)
     else:
         print(text)
     print("=" * 80)
