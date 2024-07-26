@@ -94,7 +94,7 @@ def led_on():
     return "on"
 
 @app.route('/shutdown', methods=['GET'])
-def led_on():
+def snutdnownw():
     gpio.tell()
     return "on"
 
