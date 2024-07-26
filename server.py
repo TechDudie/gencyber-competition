@@ -93,6 +93,11 @@ def led_on():
     gpio.on()
     return "on"
 
+@app.route('/shutdown', methods=['GET'])
+def led_on():
+    gpio.tell()
+    return "on"
+
 @app.route('/led_off', methods=['GET'])
 def led_off():
     gpio.off()
@@ -122,7 +127,7 @@ def siren():
     pygame.mixer.init()
     pygame.mixer.music.load("siren.mp3")
     pygame.mixer.music.play()
-    return "sirenon"
+    return "siren"
 
 if __name__ == '__main__':
     gpio_thread = threading.Thread(target=button_listener)
