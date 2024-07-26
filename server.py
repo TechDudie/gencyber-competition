@@ -113,6 +113,7 @@ def cammy():
 @app.route('/check_door', methods=['GET'])
 def check_door():
     global door
+    print(door)
     return Response("open", status=200) if door else Response("closed", status=500)
 
 if __name__ == '__main__':
