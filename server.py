@@ -70,13 +70,15 @@ def dashboard():
 def open_door():
     global door
     door = True
-    return "open"
+    html = load("dashboard.html")
+    return html
 
 @app.route('/close_door', methods=['GET'])
 def close_door():
     global door
     door = False
-    return "closed"
+    html = load("dashboard.html")
+    return html
 
 @app.route('/actions', methods=['GET'])
 def actions():
