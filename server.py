@@ -65,7 +65,7 @@ def led_off():
     return str({"status": "off"})
 
 @app.route('/camera', methods=['GET'])
-def camera():
+def cammy():
     camera.capture()
     text = chatgpt.ask_image("image.jpg", OPENAI_API_KEY)
     print("=" * 80)
