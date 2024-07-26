@@ -10,6 +10,7 @@ import colorama
 import sentiment
 import time
 import tts
+import pygame
 
 global pressed
 global i
@@ -90,13 +91,11 @@ def actions():
 @app.route('/led_on', methods=['GET'])
 def led_on():
     gpio.on()
-    print("on")
     return "on"
 
 @app.route('/led_off', methods=['GET'])
 def led_off():
     gpio.off()
-    print("off")
     return "off"
 
 @app.route('/camera', methods=['GET'])
@@ -117,6 +116,13 @@ def check_door():
     global door
     print(door)
     return Response("open", status=200) if door else Response("closed", status=500)
+
+@app.route('/siren', methods=['GET'])
+def siren():
+    pygame.mixer.init()
+    pygame.mixer.music.load("siren.mp3")
+    pygame.mixer.music.play()
+    return "sirenon"
 
 if __name__ == '__main__':
     gpio_thread = threading.Thread(target=button_listener)
