@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-d", "--dev", help="Development mode", action="store_true")
     parser.add_argument("-s", "--sentiment", help="Sentiment analysis", action="store_true")
-    parser.add_argument("-t", "--tts", help="Text to Speech on analyzed image", action="store_true")
+    # parser.add_argument("-t", "--tts", help="Text to Speech on analyzed image", action="store_true")
 
     args = parser.parse_args()
 
@@ -28,13 +28,12 @@ if __name__ == "__main__":
         if args.sentiment:
             color, sent = sentiment.get_sentiment(text, SENTIMENT_API_KEY)
             print(f"{color}{sent}: {text}{colorama.Style.RESET_ALL}")
-            tts.speak(sent)
+            tts.speak("sentiment" + sent)
         else:
             print(text)
-        
-        if args.tts:
-            time.sleep(0.5)
-            tts.speak(text)
+            
+        time.sleep(0.5)
+        tts.speak(text)
         
         print("=" * 80)
         time.sleep(7 if args.sentiment else 3)
