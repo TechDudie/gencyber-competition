@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <button onclick="openDoor()">Open Door</button>
+    <button onclick="closeDoor()">Close Door</button>
+
+    <script>
+        function openDoor() {
+            // Send a request to /open_door
+            // You can use AJAX or fetch API to send the request
+            // Example using fetch API:
+            fetch('/open_door', {
+                method: 'POST'
+            })
+            .then(response => {
+                // Handle the response if needed
+            })
+            .catch(error => {
+                // Handle any errors if needed
+            });
+        }
+
+        function closeDoor() {
+            // Send a request to /close_door
+            // You can use AJAX or fetch API to send the request
+            // Example using fetch API:
+            fetch('/close_door', {
+                method: 'POST'
+            })
+            .then(response => {
+                // Handle the response if needed
+            })
+            .catch(error => {
+                // Handle any errors if needed
+            });
+        }
+    </script>
+</body>
+</html>

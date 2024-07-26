@@ -14,10 +14,12 @@ import tts
 global pressed
 global i
 global action_stack
+global door
 
 pressed = False
 i = 0
 action_stack = []
+door = False
 
 load = lambda file: open(file).read()
 
@@ -58,11 +60,23 @@ def dashboard():
     password = request.form.get('password')
 
     hash = hashlib.sha256(password.encode('utf-8')).hexdigest() == load("hash.txt").strip()
-    print(hash)
     if username == "admin" and hash:
-        return load("dashboard.html")
+        html = load("dashboard.html")
+        return html
     else:
         return load("index.html")
+
+@app.route('/open_door', methods=['GET'])
+def open_door():
+    global door
+    door = True
+    return "open"
+
+@app.route('/close_door', methods=['GET'])
+def close_door():
+    global door
+    door = False
+    return "closed"
 
 @app.route('/actions', methods=['GET'])
 def actions():
@@ -75,13 +89,13 @@ def actions():
 def led_on():
     gpio.on()
     print("on")
-    return str({"status": "on"})
+    return "on"
 
 @app.route('/led_off', methods=['GET'])
 def led_off():
     gpio.off()
     print("off")
-    return str({"status": "off"})
+    return "off"
 
 @app.route('/camera', methods=['GET'])
 def cammy():
@@ -94,7 +108,12 @@ def cammy():
     time.sleep(0.5)
     tts.speak(text)
     print("=" * 80)
-    return str({"status": "camera", "text": text, "sentiment": sent, "color": color})
+    return text
+
+@app.route('/check_door', methods=['GET'])
+def check_door():
+    global door
+    return "open" if door else "closed"
 
 if __name__ == '__main__':
     gpio_thread = threading.Thread(target=button_listener)
