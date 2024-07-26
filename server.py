@@ -74,9 +74,8 @@ def cammy():
     tts.speak("sentiment" + sent)
     time.sleep(0.5)
     tts.speak(text)
-    
     print("=" * 80)
-    return str({"status": "camera"})
+    return str({"status": "camera", "text": text, "sentiment": sent, "color": color})
 
 if __name__ == '__main__':
     gpio_thread = threading.Thread(target=button_listener)
