@@ -19,4 +19,3 @@ def tell():
 
 def get_state():
     return GPIO.input(17)
-    return 1
