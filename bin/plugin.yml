@@ -1,0 +1,24 @@
+name: Cyberverse
+version: 1.0.0
+main: com.technodot.sigma.Cyberverse
+description: 4 hour speedrun
+api-version: '1.16'
+commands:
+    ledon:
+        description: turn led on
+        usage: /<command>
+    ledoff:
+        description: turn led off
+        usage: /<command>
+    camera:
+        description: take photo and get data about it
+        usage: /<command>
+    check_door:
+        description: check the api if the door is open or closed
+        usage: /<command>
+    antivirus:
+        description: check if angry mobs trying to attack
+        usage: /<command>
+    shutdown:
+        description: shutdown other pi
+        usage: /<command>
