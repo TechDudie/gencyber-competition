@@ -1,4 +1,5 @@
 from flask import Flask, request
+import hashlib
 import threading
 import time
 import gpio
@@ -17,6 +18,8 @@ global action_stack
 pressed = False
 i = 0
 action_stack = []
+
+load = lambda file: open(file).read()
 
 with open("/home/pi/.env") as f:
     e = f.read().split("\n")
@@ -44,6 +47,22 @@ def button_listener():
         time.sleep(0.05)
 
 app = Flask(__name__)
+
+@app.route('/', methods=['GET'])
+def home():
+    return load("index.html")
+
+@app.route('/dashboard.html', methods=['POST'])
+def dashboard():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    hash = hashlib.sha256(password.encode('utf-8')).hexdigest() == load("hash.txt").strip()
+    print(hash)
+    if username == "admin" and hash:
+        return load("dashboard.html")
+    else:
+        return load("index.html")
 
 @app.route('/actions', methods=['GET'])
 def actions():
