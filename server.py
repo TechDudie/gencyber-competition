@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 import hashlib
 import threading
 import time
@@ -113,7 +113,7 @@ def cammy():
 @app.route('/check_door', methods=['GET'])
 def check_door():
     global door
-    return "open" if door else "closed"
+    return Response("open", status=200) if door else Response("closed", status=500)
 
 if __name__ == '__main__':
     gpio_thread = threading.Thread(target=button_listener)
