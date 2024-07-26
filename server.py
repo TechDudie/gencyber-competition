@@ -81,4 +81,4 @@ def camera():
 if __name__ == '__main__':
     gpio_thread = threading.Thread(target=button_listener)
     gpio_thread.start()
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=80)
